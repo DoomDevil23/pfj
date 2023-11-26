@@ -1,15 +1,19 @@
 <?php
 
 session_start();
-
+//VALIDAMOS QUE EXISTA UN USUARIO QUE HAYA CREADO UNA SESION. SI SE LLEGA A ESTA PAGINA ESCRIBIENDO EL URL SIN INICIAR SESION SE REDIRIGE AL USUARIO A LA PAGINA DE LOGIN
 if(!isset($_SESSION['idUser']) && !isset($_POST['email'])){
     header("Location: index.php");
 }
 
 require 'user.php';
+
+//CREAMOS UN OBJETO DE LA CALSE USER PARA PODER BUSCAR AL USUARIO CON LOS DATOS SUMINISTRADOS
 $objUser = new User();
 $results = $objUser->searchUser($_POST['email']);
 
+//ESTE IF ES VERDADERO SI LA CONSULTA ENCUENTRA AL USUARIO ASOCIADO AL EMAIL SUMINISTRADO Y SI LA CONTRASEÑA SUMINISTRADA CONCUERDA CON LA CONTRASEÑA ALMACENADA EN LA BASE DE DATOS
+//CUANDO SE CUMPLEN LAS CONDICIONES SE CARGA $_SESSION CON LOS DATOS DEL USUARIO
 if(is_countable($results) > 0 && password_verify($_POST['password'], $results['password'])):
     $_SESSION['idUser'] = $results['id'];
     $_SESSION['nameUser'] = $results['name'];
@@ -27,11 +31,14 @@ endif;
 <title>NetFaceBloc</title>
 <link rel="stylesheet" type="text/css" href="Style/style.css">
 <link href='http://fonts.googleapis.com/css?family-Confortas' rel='stylesheet' type='text/css'>
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
 </head>
 <body>
 <section id=header>
     <header>
-        <h1></h1>
+        <h1>NetFaceBloc</h1>
     </header>
 </section>
 

@@ -1,3 +1,13 @@
+/*
+TABLA DE ESTILOS PARA EL SITIO WEB
+PALETA DE COLORES:
+#183446
+#fff
+#38aecc
+#000
+#022f40
+#808080
+*/
 body{
     background-color: #183446;
     min-height: 100vh;
@@ -19,7 +29,6 @@ body{
 }
 
 #user{
-    /*border: #000 solid 1px;*/
     padding: 10px;
     margin-left: 5%;
     margin-top: 2.5%;
@@ -98,8 +107,6 @@ body{
 }
 #button:hover{
     transform: translateY(-2px);
-    /*background-color: transparent;
-    color: #000;*/
     border: none;
 }
 #button:focus{

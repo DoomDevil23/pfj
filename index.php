@@ -5,12 +5,26 @@ session_start();
 require 'user.php';
 $objUser = new User();
 
-if(isset($_SESSION['user_id'])) {
-    $results = $objUser->consulta($_SESSION['user_id']);
-    $user = NULL;
+//VALIDAMOS SI EXISTE UN USUARIO CON UNA SESION ACTIVA. DE SER ASI EL IF ES VERDADERO Y SE REDIRIGE AL USUARIO A LA PAGINA DE CONFIGURACION DE SU CUENTA
+if(isset($_SESSION['idUser'])) {
+    $results = $objUser->searchUser($_SESSION['emailUser']);
 
     if(count($results) > 0){
-        $user = $results;
+        $_SESSION['idUser'] = $results['id'];
+        $_SESSION['nameUser'] = $results['name'];
+        $_SESSION['emailUser'] = $results['email'];
+        $_SESSION['phoneUser'] = $results['phone'];
+        $_SESSION['passwordUser'] = $results['password'];
+        $_SESSION['avatarUser'] = $results['avatar'];
+        header("Location: http://localhost:80/pfj/config.php");
+    }
+    //EN CASO DE TENER UNA SESION ACTIVA PERO QUE NO PERTENEZCA A UN USUARIO REGISTRADO EN LA BASE DE DATOS, LA SESION ES CERRADA EN ESTE ELSE
+    else{
+        session_unset();
+
+        session_destroy();
+
+        session_start();
     }
 
 }
@@ -26,7 +40,7 @@ if(isset($_SESSION['user_id'])) {
 <body>
 <section id=header>
     <header>
-        <h1></h1>
+        <h1>NetFaceBloc</h1>
     </header>
 </section>
 
