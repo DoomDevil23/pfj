@@ -65,7 +65,7 @@ class User{
             $stmt->bindValue(':name', $name);
             $stmt->bindValue(':email', $email);
             $stmt->bindValue(':phone', $phone);
-            $stmt->bindValue(':password', password_hash($password, PASSWORD_BCRYPT));
+            $stmt->bindValue(':password', $password);
             $stmt->bindValue(':avatar', $avatar);
             $stmt->bindValue(':id', $id);
 
@@ -79,7 +79,19 @@ class User{
         return $message;
     }
 
-    public function deleteUser($id, $name, $email, $phone, $password, $avatar){
+    public function deleteUser($id){
+        $objDataBase  = new DataBase();
+        $conn = $objDataBase->conexion();
+        if(!$conn){
+            return false;
+        }
+        else{
+            $query = "DELETE FROM users WHERE id = :id";
+            
+            $stmt = $conn->prepare($query);
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+        }
 
     }
 }

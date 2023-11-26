@@ -2,13 +2,11 @@
 
 session_start();
 
-//$_SESSION['user_id']=1; //VALOR INICIALIZADO PARA PODER PROBAR ESTA PAG CON LA CLASE DATABASE
-
-require 'database.php';
-$objDataBase = new DataBase();
+require 'user.php';
+$objUser = new User();
 
 if(isset($_SESSION['user_id'])) {
-    $results = $objDataBase->consulta($_SESSION['user_id']);
+    $results = $objUser->consulta($_SESSION['user_id']);
     $user = NULL;
 
     if(count($results) > 0){
@@ -48,6 +46,7 @@ if(isset($_SESSION['user_id'])) {
         <p id=button>
             <a href="register.php">Registrarse</a>
         </p>
+    </form>
 </section>
 
 <section id=footer>

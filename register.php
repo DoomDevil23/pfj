@@ -20,18 +20,21 @@ if(!empty($_POST['name']) &&!empty($_POST['email']) && !empty($_POST['phone']) &
         if(!$resp):
             echo '<script>alert("Error al conectar con la base de datos")</script>';
         else:
-            //CUANDO SE CREA EL USUARIO CON EXITO PODEMOS GUARDAR EL AVATAR EN LA CARPETA CORRESPONDIENTE
-            $info = pathinfo($_FILES['avatar']['name']);
-            $ext = $info['extension'];
-            $newName = $_POST['email'].".".$ext;
-            $target = "Media/Usuarios_Avatar/".$newName;
-            move_uploaded_file($_FILES['avatar']['tmp_name'], $target);
+            if(!empty($_FILES['avatar']['name'])):
+                //CUANDO SE CREA EL USUARIO CON EXITO PODEMOS GUARDAR EL AVATAR EN LA CARPETA CORRESPONDIENTE
+                $info = pathinfo($_FILES['avatar']['name']);
+                $ext = $info['extension'];
+                $newName = $_POST['email'].".".$ext;
+                $target = "Media/Usuarios_Avatar/".$newName;
+                move_uploaded_file($_FILES['avatar']['tmp_name'], $target);
 
-            //AHORA RECUPERAMOS EL USUARIO RECIEN CREADO PARA AGREGARLE LA RUTA DE LA IMAGEN DE SU AVATAR EN EL CAMPO AVATAR DE LA TABLA USERS
-            $user = $objUser->searchUser($_POST['email']);
-            $objUser->updateUser($user['id'], $user['name'], $user['email'], $user['phone'], $_POST['password'], $target);
+                //AHORA RECUPERAMOS EL USUARIO RECIEN CREADO PARA AGREGARLE LA RUTA DE LA IMAGEN DE SU AVATAR EN EL CAMPO AVATAR DE LA TABLA USERS
+                $user = $objUser->searchUser($_POST['email']);
+                $objUser->updateUser($user['id'], $user['name'], $user['email'], $user['phone'], $user['password'], $target);
+            endif;
 
             echo '<script>alert("'.$resp.'")</script>';
+            echo '<meta http-equiv="refresh" content="0;url=http://localhost:80/pfj/"> ';
         endif;
     endif;
 endif;
@@ -72,6 +75,11 @@ endif;
         <p>
             <input id=button type="submit" value="Guardar">
         </p>
+        <hr>
+        <p id=button>
+            <a href="index.php">Regresar</a>
+        </p>
+    </form>
 </section>
 
 <section id=footer>
