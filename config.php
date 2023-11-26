@@ -73,7 +73,7 @@ if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['phone']))
 <body>
 <section id=header>
     <header>
-        <h1>NetFaceBloc</h1>
+        <h1></h1>
     </header>
 </section>
 

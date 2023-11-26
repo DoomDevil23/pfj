@@ -50,7 +50,7 @@ endif;
 <body>
 <section id=header>
     <header>
-        <h1>NetFaceBloc</h1>
+        <h1></h1>
     </header>
 </section>
 

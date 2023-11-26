@@ -26,7 +26,7 @@ if(isset($_SESSION['user_id'])) {
 <body>
 <section id=header>
     <header>
-        <h1>NetFaceBloc</h1>
+        <h1></h1>
     </header>
 </section>
 

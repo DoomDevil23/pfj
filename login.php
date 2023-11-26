@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION['idUser'])){
+if(!isset($_SESSION['idUser']) && !isset($_POST['email'])){
     header("Location: index.php");
 }
 
@@ -31,7 +31,7 @@ endif;
 <body>
 <section id=header>
     <header>
-        <h1>NetFaceBloc</h1>
+        <h1></h1>
     </header>
 </section>
 
